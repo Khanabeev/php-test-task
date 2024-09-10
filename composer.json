@@ -1,0 +1,17 @@
+{
+  "name": "app/operation-doer",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    },
+    "files": [
+      "src/Operations/others.php"
+    ]
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.7"
+  },
+  "require": {
+    "php": "^8.2"
+  }
+}

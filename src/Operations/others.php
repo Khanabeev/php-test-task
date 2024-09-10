@@ -1,6 +1,6 @@
 <?php
 
-namespace Operations\Notification;
+namespace App\Operations;
 
 /**
  * @property Seller $Seller
@@ -8,13 +8,21 @@ namespace Operations\Notification;
 class Contractor
 {
     const TYPE_CUSTOMER = 0;
-    public $id;
-    public $type;
-    public $name;
+    public $id = null;
+    public $type = null;
+    public $name = null;
+    public $email = null;
+    public $mobile = null;
+    public ?Seller $Seller = null;
 
-    public static function getById(int $resellerId): self
+    public static function getById(int $contractorId): ?static
     {
-        return new self($resellerId); // fakes the getById method
+        $contractor = new static($contractorId); // fakes the getById method
+        $contractor->id = $contractorId;
+        // Just to make it work, so I can test execution without creation a new Model class
+        $contractor->email = 'test@example.com';
+        $contractor->mobile = '0979898989';
+        return $contractor;
     }
 
     public function getFullName(): string
@@ -53,11 +61,11 @@ abstract class ReferencesOperation
 
     public function getRequest($pName)
     {
-        return $_REQUEST[$pName];
+        return $_REQUEST[$pName] ?? [];
     }
 }
 
-function getResellerEmailFrom()
+function getResellerEmailFrom($resellerId)
 {
     return 'contractor@example.com';
 }
@@ -66,6 +74,11 @@ function getEmailsByPermit($resellerId, $event)
 {
     // fakes the method
     return ['someemeil@example.com', 'someemeil2@example.com'];
+}
+
+function __(string $message, ...$data): string {
+    /** TODO: process data */
+    return $message;
 }
 
 class NotificationEvents
